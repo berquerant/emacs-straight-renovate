@@ -46,6 +46,7 @@ class Renovate:
             try:
                 e = self.__new_lock_entry(dep, r)
                 entries.append(e)
+                logging.info("Renovate: add %s", e.into_str())
                 stat.succeed += 1
             except Exception as e:
                 logging.warn("Renovate: failed to craete lock entry for %s, %s", dep.name, e)
