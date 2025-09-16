@@ -40,7 +40,7 @@ class Dir:
     def list_tags_order_by_creatordate_asc(self) -> list[str]:
         try:
             stdout = self.__run("tag", "-l", "--sort=creatordate", "--format=%(refname)", **self.__common_args()).stdout
-            return [x.lstrip("refs/tags/") for x in stdout.rstrip().split()]
+            return [x.removeprefix("refs/tags/") for x in stdout.rstrip().split()]
         except Exception as e:
             raise DirException(f"failed to list tags: {self.path}") from e
 
@@ -88,7 +88,7 @@ class Dir:
     def renovate_dep_name(self) -> str:
         origin = self.remote_origin_url()
         if origin.startswith("https://github.com/"):
-            return origin.lstrip("https://github.com/").rstrip(".git")
+            return origin.removeprefix("https://github.com/").removesuffix(".git")
         raise DirException(f"cannot infer renovate dep name from {origin}")
 
     def renovate_datasource(self) -> str:
