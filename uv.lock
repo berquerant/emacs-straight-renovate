@@ -72,8 +72,8 @@ wheels = [
 
 [[package]]
 name = "emacs-straight-renovate"
-version = "0.1.0"
-source = { virtual = "." }
+version = "0.1.2"
+source = { editable = "." }
 
 [package.dev-dependencies]
 dev = [

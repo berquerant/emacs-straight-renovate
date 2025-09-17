@@ -1,6 +1,6 @@
 [project]
 name = "emacs-straight-renovate"
-version = "0.1.1"
+version = "0.1.2"
 description = "Applying Renovate to `straight-default.el` in Emacs"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -16,6 +16,9 @@ dev = [
 
 [project.scripts]
 straight = "straight.cli:main"
+
+[tool.uv]
+package = true
 
 [tool.ruff]
 exclude = [
