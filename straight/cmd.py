@@ -1,9 +1,8 @@
-import json
 import logging
 from dataclasses import dataclass
 from datetime import datetime
 
-from .renovate import LockEntries, LockEntry, LockFile, custom_manager_entry
+from .renovate import LockEntries, LockEntry, LockFile
 from .repo import Dir, Root
 from .straight import DefaultEntries, Dependencies, Dependency
 
@@ -130,10 +129,6 @@ class Lock:
         new_deps = Dependencies(list(dep_map.values()))
         self.deps.write(new_deps)
         logging.info("Lock: stat, %s", stat.into_str())
-        logging.info(
-            "Lock: renovate custom manager: %s",
-            json.dumps(custom_manager_entry(["example_file"]), separators=(",", ":")),
-        )
         logging.info("Lock: end")
 
     def __read_deps(self) -> Dependencies:
