@@ -54,6 +54,7 @@ ignore = [
   "D101",
   "D102",
   "D104", # Missing docstring in public package
+  "D105", # Missing docstring in magic method
   "D107",
   "D203",
   "D212",
