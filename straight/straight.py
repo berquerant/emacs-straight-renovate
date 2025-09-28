@@ -24,7 +24,7 @@ class Dependencies(list[Dependency]):
 
     def into_str(self) -> str:
         contents = "\n ".join(x.into_cons_cell() for x in self)
-        return f"({contents})\n:gamma"
+        return f"({contents})\n:epsilon"
 
 
 class DefaultEntries(FileHandler[Dependencies]):

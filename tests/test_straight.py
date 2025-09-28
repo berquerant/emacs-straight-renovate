@@ -20,7 +20,7 @@ class TestStraight(TestCase):
                 dedent(
                     """\
                     ()
-                    :gamma"""
+                    :epsilon"""
                 ),
             ),
             (
@@ -29,7 +29,7 @@ class TestStraight(TestCase):
                 dedent(
                     """\
                     (("NAME" . "COMMIT"))
-                    :gamma"""
+                    :epsilon"""
                 ),
             ),
             (
@@ -44,7 +44,7 @@ class TestStraight(TestCase):
                     """\
                     (("NAME" . "COMMIT")
                      ("NAME2" . "COMMIT2"))
-                    :gamma"""
+                    :epsilon"""
                 ),
             ),
         ]
