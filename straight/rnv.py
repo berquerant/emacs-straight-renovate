@@ -28,5 +28,5 @@ class Rnv:
     def generate(self) -> str:
         return self.__run("gen", **self.__common_args()).stdout.rstrip()
 
-    def lock(self, lines: str) -> str:
-        return self.__run("lock", input=lines, **self.__common_args()).stdout.rstrip()
+    def lock(self, lines: str, checkout: bool) -> str:
+        return self.__run("lock", "--checkout", input=lines, **self.__common_args()).stdout.rstrip()

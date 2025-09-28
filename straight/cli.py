@@ -36,7 +36,7 @@ def main() -> int:
         python -m emacs-straight-renovate -e /path/to/straight-default.el -d /path/to/straight/repos -r /path/to/lockfile lock
 
         Requirements:
-        - https://github.com/berquerant/rnv 0.1.2
+        - https://github.com/berquerant/rnv 0.2.0
         """,
         ),
     )
@@ -51,7 +51,8 @@ def main() -> int:
     subp = parser.add_subparsers(dest="cmd")
 
     subp.add_parser("gen", help="generate renovate lock file")
-    subp.add_parser("lock", help="generate straight-default.el")
+    lockp = subp.add_parser("lock", help="generate straight-default.el")
+    lockp.add_argument("--checkout", "-c", action="store_true", help="checkout to the commit")
 
     args = parser.parse_args()
     setup(args.debug)
@@ -66,7 +67,9 @@ def main() -> int:
             case "gen":
                 GenCommand(deps=deps, repos=repos, locks=args.renovate_lock, fail_fast=args.failfast).run()
             case "lock":
-                LockCommand(deps=deps, repos=repos, locks=args.renovate_lock, fail_fast=args.failfast).run()
+                LockCommand(
+                    deps=deps, repos=repos, locks=args.renovate_lock, fail_fast=args.failfast, checkout=args.checkout
+                ).run()
             case _:
                 raise Exception(f"unknown subcommand: {args.cmd}")
     except Exception:

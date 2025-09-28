@@ -13,6 +13,7 @@ class Command:
     repos: Root
     locks: Path
     fail_fast: bool
+    checkout: bool
 
     def run(self) -> None:
         stat = Stat()
@@ -25,7 +26,7 @@ class Command:
             stat.incr("processed")
             logging.info("Lock: process %s", dep_name)
             try:
-                commit = self.repos.rnv(dep_name).lock(locks)
+                commit = self.repos.rnv(dep_name).lock(locks, self.checkout)
             except Exception as e:
                 stat.incr("failed")
                 if self.fail_fast:

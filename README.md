@@ -2,8 +2,8 @@
 
 ```
 ❯ python -m straight.cli --help
-usage: cli.py [-h] [--default-el DEFAULT_EL] [--repodir REPODIR] [--renovate-lock RENOVATE_LOCK]
-              [--failfast] [--rnv RNV] [--debug]
+usage: cli.py [-h] [--default-el DEFAULT_EL] [--repodir REPODIR]
+              [--renovate-lock RENOVATE_LOCK] [--failfast] [--rnv RNV] [--debug]
               {gen,lock} ...
 
 Applying Renovate to `straight-default.el` in Emacs
@@ -43,5 +43,5 @@ If Renovate updates lockfile, apply them to straight-default.el.
 python -m emacs-straight-renovate -e /path/to/straight-default.el -d /path/to/straight/repos -r /path/to/lockfile lock
 
 Requirements:
-- https://github.com/berquerant/rnv 0.1.2
+- https://github.com/berquerant/rnv 0.2.0
 ```
