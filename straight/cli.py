@@ -48,6 +48,7 @@ def main() -> int:
     parser.add_argument("--failfast", "-f", action="store_true", help="exit on the first failure")
     parser.add_argument("--rnv", action="store", default="rnv", help="rnv command")
     parser.add_argument("--debug", action="store_true", help="enable debug log")
+    parser.add_argument("--exclude", action="store", default="0^", help="regex to exclude entry")
     subp = parser.add_subparsers(dest="cmd")
 
     subp.add_parser("gen", help="generate renovate lock file")
@@ -61,15 +62,20 @@ def main() -> int:
     repos = Root(root=args.repodir, rnv_cmd=args.rnv)
     if args.debug:
         os.environ["RUST_LOG"] = "debug"
+    common_args = {
+        "deps": deps,
+        "repos": repos,
+        "locks": args.renovate_lock,
+        "fail_fast": args.failfast,
+        "exclude": args.exclude,
+    }
 
     try:
         match args.cmd:
             case "gen":
-                GenCommand(deps=deps, repos=repos, locks=args.renovate_lock, fail_fast=args.failfast).run()
+                GenCommand(**common_args).run()
             case "lock":
-                LockCommand(
-                    deps=deps, repos=repos, locks=args.renovate_lock, fail_fast=args.failfast, checkout=args.checkout
-                ).run()
+                LockCommand(checkout=args.checkout, **common_args).run()
             case _:
                 raise Exception(f"unknown subcommand: {args.cmd}")
     except Exception:

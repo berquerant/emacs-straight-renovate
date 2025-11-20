@@ -1,4 +1,5 @@
 import logging
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -13,15 +14,21 @@ class Command:
     repos: Root
     locks: Path
     fail_fast: bool
+    exclude: str
 
     def run(self) -> None:
         stat = Stat()
         logging.info("Gen: start")
+        exclude = re.compile(self.exclude)
         outputs = []
         deps = self.deps.read() or Dependencies([])
         for i, dep in enumerate(deps):
             stat.incr("processed")
             logging.info("Gen: process %s", dep.into_cons_cell())
+            if exclude.search(dep.name) is not None:
+                logging.info("Gen: exclude %s", dep.into_cons_cell())
+                stat.incr("excluded")
+                continue
             try:
                 line = self.__run(dep)
             except Exception as e:

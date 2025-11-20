@@ -1,4 +1,5 @@
 import logging
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -14,10 +15,12 @@ class Command:
     locks: Path
     fail_fast: bool
     checkout: bool
+    exclude: str
 
     def run(self) -> None:
         stat = Stat()
         logging.info("Lock: start")
+        exclude = re.compile(self.exclude)
         deps = self.deps.read() or Dependencies([])
         dep_map = {x.name: x for x in deps}
         with self.locks.open() as f:
@@ -25,6 +28,10 @@ class Command:
         for dep_name in dep_map:
             stat.incr("processed")
             logging.info("Lock: process %s", dep_name)
+            if exclude.search(dep_name) is not None:
+                logging.info("Lock: exclude %s", dep_name)
+                stat.incr("excluded")
+                continue
             try:
                 commit = self.repos.rnv(dep_name).lock(locks, self.checkout)
             except Exception as e:

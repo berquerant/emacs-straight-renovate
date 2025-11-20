@@ -2,8 +2,8 @@
 
 ```
 ❯ python -m straight.cli --help
-usage: cli.py [-h] [--default-el DEFAULT_EL] [--repodir REPODIR]
-              [--renovate-lock RENOVATE_LOCK] [--failfast] [--rnv RNV] [--debug]
+usage: cli.py [-h] [--default-el DEFAULT_EL] [--repodir REPODIR] [--renovate-lock RENOVATE_LOCK]
+              [--failfast] [--rnv RNV] [--debug] [--exclude EXCLUDE]
               {gen,lock} ...
 
 Applying Renovate to `straight-default.el` in Emacs
@@ -24,6 +24,7 @@ options:
   --failfast, -f        exit on the first failure
   --rnv RNV             rnv command
   --debug               enable debug log
+  --exclude EXCLUDE     regex to exclude entry
 
 First, generate the lock file for renovate.
 
