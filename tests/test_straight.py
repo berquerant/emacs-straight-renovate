@@ -17,20 +17,16 @@ class TestStraight(TestCase):
             (
                 "empty",
                 straight.Dependencies([]),
-                dedent(
-                    """\
+                dedent("""\
                     ()
-                    :epsilon"""
-                ),
+                    :epsilon"""),
             ),
             (
                 "one",
                 straight.Dependencies([straight.Dependency(name="NAME", commit="COMMIT")]),
-                dedent(
-                    """\
+                dedent("""\
                     (("NAME" . "COMMIT"))
-                    :epsilon"""
-                ),
+                    :epsilon"""),
             ),
             (
                 "two",
@@ -40,12 +36,10 @@ class TestStraight(TestCase):
                         straight.Dependency(name="NAME2", commit="COMMIT2"),
                     ]
                 ),
-                dedent(
-                    """\
+                dedent("""\
                     (("NAME" . "COMMIT")
                      ("NAME2" . "COMMIT2"))
-                    :epsilon"""
-                ),
+                    :epsilon"""),
             ),
         ]
         for title, deps, want in cases:
